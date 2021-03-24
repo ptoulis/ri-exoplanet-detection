@@ -56,5 +56,5 @@ This confidence set will contain the values `{0.586, 0.774, 1.413, 3.417}`. We s
     
     ci = Build_ConfidenceSet(rv, all_P, time_budget_mins = 5)   # Build (fast) 99% confidence set for unknown period.
 
-The confidence set will contain the values `{4.23}` indicating that the underlying periodicity can be sharply identified.
+The confidence set will be a singleton `{4.23}` indicating that the underlying periodicity can be sharply identified.
 
