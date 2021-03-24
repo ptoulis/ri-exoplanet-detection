@@ -47,7 +47,10 @@ Here, we will construct a 99% confidence set for the unknown periodicity. The fu
 This confidence set will contain the values `{0.586, 0.774, 1.413, 3.417}`. We see that the true value is included (as expected from the above test).
 
 The construction below is designed to be approximate and fast. In a full application we need to increase `num_samples` and the `time_budget_mins` so that inference relies on more samples. If `m` is the number of periods to be tested for inclusion in the confidence set, the code calculates `m` by solving the following equation:
-`m * num_samples * C = time_budget_mins`
+
+    m * num_samples * C = time_budget_mins` 
+
+where `C` is wall-clock time / periodogram calculation --- this is estimated through a quick simulation so that we can adjust to the current computing environment.
 
 ## Example 5. Real exoplanet detection: 51 Pegasi b
 
