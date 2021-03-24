@@ -40,21 +40,54 @@ Let's test whether the true period could be equal to sqrt(2), in notation H0: θ
     
 ## Example 4. Build 99% confidence set.
 
-Here, we will construct a 99% confidence set for the unknown periodicity. The function `Build_ConfidenceSet` implements Procedure 1 in the [paper]( https://www.ptoulis.com/s/astro_main.pdf). The construction below is designed to be approximate and fast. In a full application we need to increase `num_samples` and the `time_budget_mins` so that inference relies on more samples. See paper for details.
+Here, we will construct a 99% confidence set for the unknown periodicity. The function `Build_ConfidenceSet` implements Procedure 1 in the [paper]( https://www.ptoulis.com/s/astro_main.pdf). 
 
     ci = Build_ConfidenceSet(rv, all_P, time_budget_mins = 2)
 
 This confidence set will contain the values `{0.586, 0.774, 1.413, 3.417}`. We see that the true value is included (as expected from the above test).
 
-## Example 5. Real exoplanet detection problem: 51 Pegasi b
+The construction below is designed to be approximate and fast. In a full application we need to increase `num_samples` and the `time_budget_mins` so that inference relies on more samples. If `m` is the number of periods to be tested for inclusion in the confidence set, the code calculates `m` by solving the following equation:
+`m * num_samples * C = time_budget_mins`
+
+## Example 5. Real exoplanet detection: 51 Pegasi b
 
     source("rv_data.R")
-    rvPeg = load_Dataset("51Pegb") # load RV dataset.
-    all_P = 10^seq(-1, 2.5, length.out=25000)                   # universe of periods (denoted Θ in paper)
+    all = load_Dataset_Index(1)                                 # 51 Peg b. For indexing details see `rv_data.R`.
+    rvPeg = all$RV                                              # load RV dataset.
+    all_P = all$Periods                                         # universe of periods (denoted Θ in paper)
     ls0 = lombe_scragle_fast(rvPeg, all_P, v=T)                 # LS periodogram of 51Pegasi B
     ls0$Phat                                                    # Peak should be at 4.23-days.
     
     ci = Build_ConfidenceSet(rv, all_P, time_budget_mins = 5)   # Build (fast) 99% confidence set for unknown period.
 
 The confidence set will be a singleton `{4.23}` indicating that the underlying periodicity can be sharply identified.
+
+## Example 6. Real exoplanet detection: candidate exoplanet around α Centauri B
+
+See [(Dumusque et al, 2012)](https://www.nature.com/articles/nature11572) for details.
+
+    all = load_Dataset_Index(1)                                 # α Centauri B data.
+    rvD = all$RV                                              
+    all_P = all$Periods                                        
+    ls0 = lombe_scragle_fast(rvD, all_P, v=T)                 
+    ls0$Phat                                                    # Peak should be at 3.24 days.
+    
+    ci = Build_ConfidenceSet(rvD, all_P, time_budget_mins = 5)  # Build (fast) 99% confidence set for unknown period.
+
+The confidence set will be `{0.762,  3.236,  8.118, 61.133}` indicating that the unnderlying period cannot be identified with this dataset.
+
+## Example 7. Real exoplanet detection: candidate exoplanet around Proxima Centauri
+
+See [(Anglada-Escude, 2016)](https://www.nature.com/articles/nature19106) for details.
+For the analysis here we use the more recent and precise ESPRESSO measurements found here (https://vizier.u-strasbg.fr/viz-bin/VizieR?-source=J/A+A/639/A77)
+See also [(Suarez Mascareno et al, 2020)](https://arxiv.org/abs/2005.12114) for details on the ESPRESSO data.
+
+    all = load_Dataset_Index(1)                                 # Proxima Centauri data.
+    all_P = 10^seq(-1, 2.5, length.out=25000)               
+    ls0 = lombe_scragle_fast(rvE, all_P, v=T)                 
+    ls0$Phat                                                    # Peak should be at 11.17 days.
+    
+    ci = Build_ConfidenceSet(rvE, all_P, time_budget_mins = 10)  # Requires more samples than before.
+
+The confidence set will be `{0.916, 11.17}` indicating that the detection appears to be robust. However, there is a nuisance signal at 0.916-days that cannot be rejected at the 1% level. With few more observations (additional 10-15) this nuisance signal could be eliminated. See Section 6 in the paper.
 
