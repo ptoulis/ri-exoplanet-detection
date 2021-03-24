@@ -126,12 +126,12 @@ load_dumusque2012 = function() {
 }
 
 load_ESPRESSO = function() {
-  rvData = read.csv("datasets/ESPRESSO/Proxima_RV.csv", header=T)
+  rvData = read.csv("datasets/Proxima_RV.csv", header=T)
   rvData = subset(rvData, days > 8524) # ESPRESSO?
   nrow(rvData)
   
   # rvData$days = rvData$days - min(rvData$days)
-  fwData = read.csv("datasets/ESPRESSO/Proxima_FWHM.csv", header=T)
+  fwData = read.csv("datasets/Proxima_FWHM.csv", header=T)
   fwData = subset(fwData, days > 8524) # ESPRESSO?
   nrow(fwData)
   fwData$Spec=NULL

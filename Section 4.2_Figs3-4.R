@@ -8,7 +8,7 @@
 rm(list=ls())
 source("rv_lib.R")
 
-h = function(x) 1 - cos(2*pi*x) 
+h = function(x) 1 - cos(2*pi*x)  # See also Hall and Li (2000)
 theta_true = sqrt(2) # true period
 
 #' Observation designs. Correspond to the three choices in Section 4.2.
@@ -43,37 +43,37 @@ sample_y = function(days, sigma) {
   return(y)
 }
 
-Figure2 = function(nsamples, budget) {
+#' Generates Figure 4.
+#' @param nsamples How many samples to use to generate the sampling distribution of the periodogram peak.
+#' @param design_no Which design to use. In {1, 2, 3} and corresponds to the designs of Section 4.2
+#' @param budget Time budget in minutes.
+#' 
+Figure4 = function(nsamples=100, design_no=2, budget=5) {
   
   set.seed(43)  # problematic for Sim 2
-  # Simulation 1 or 2.
-  design_no=2
   n = 200
   sigma = 1.5
   days = sample_days(n, design_no)
   y = sample_y(days, sigma)
   all_P = 10^seq(-1, 2, length.out=10000)
-  # lines(days, h(days/theta0), col="red", type="b")
+  
+  # LS periodogram for data.
   rvData = data.frame(days=days, val=y, se=sigma)
   ls0 = lombe_scragle_fast(rvData, all_P, v=T)
   
-  Test_Period_Theta0(rvData, all_P, theta0 = theta_true, null_samples=100)
-  # out1 = Test_Period_Theta0_np(rvData, all_P, theta0=ls0$Phat, null_samples = 100, verbose = T)
-  # out = Test_Period_Theta0_np(rvData, all_P, theta0=theta_true, null_samples = 100, verbose = T)
-  # 9.6471368626
-  # 12.7177546117
-  result = Test_Period_Theta0(rvData, all_P, 9.6471368626, null_samples = 100)
-  result =  Test_Period_Theta0(rvData, all_P, 12.7177546117, null_samples = 1000)
-
-  #confset_np = Build_ConfidenceSet_theta0_np(rvData, all_P, null_samples = 200, time_budget_mins = 10)
-  out = Build_ConfidenceSet_theta0(rvData, all_P, null_samples = nsamples,
-                                   time_budget_mins = budget)
+  # Test H0: θ* = true value.(We should not reject.)
+  result = Test_Period_Theta0(rvData, all_P, theta0 = theta_true, null_samples=100)
+  result$pval # Should be > 0.05. 
   
-  save(out, file="results_Confidence_Sets.rda")
+  # Confidence Set.
+  out = Build_ConfidenceSet(rvData, all_P, null_samples = nsamples, time_budget_mins = budget)
+  print(out)  # Prints confidence set.
 }
 
 
-Figure2b = function(nreps=100, nsamples=100) {
+#' Experiment not used in paper. Illustrates the coverage properties of our confidence set.
+#' 
+Marginal_coverage = function(nreps=100, nsamples=100) {
   
   # Simulation 1 or 2.
   design_no=2
@@ -114,10 +114,12 @@ Figure2b = function(nreps=100, nsamples=100) {
 
 ## Sampling distribution of periodogram peak.
 ## Simulation based on Hall and Li (2000)
-Figure1 = function(nsamples) {
+#' @param nsamples How many samples to use for the sampling distributions of Figure 3.
+#' 
+Figure3 = function(nsamples=100) {
   
   # theta_f = 7 # observations per week
-  all_n = c(50, 100, 200, 500)
+  all_n = c(50) #, 100, 200, 500)
   all_designs = c(1,2, 3)
   all_P = 10^seq(-1, 2, length.out=10000)
 

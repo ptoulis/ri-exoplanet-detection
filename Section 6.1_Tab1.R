@@ -24,7 +24,7 @@ D = load_Dataset_Index(D_index)
 
 rvData = D$RV
 all_P = D$Periods
-load("ALL_RESULTS_n100000.rdata")
+load("ALL_RESULTS_R=100000.rdata")
 ALL_RESULTS = as.data.frame(ALL_RESULTS)
 A  = subset(ALL_RESULTS, dataset==D_index & (!reject))
 rownames(A) = seq(1, nrow(A))

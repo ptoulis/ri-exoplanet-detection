@@ -40,7 +40,7 @@ axis(1, at = c(-250, -200, -150, -100, -50, 0),
 source("rv_lib.R")
 
 rv = data.frame(val=Yi, days=Ti, se=1) # SE does not matter here.
-# all_P = seq(0.01, 62.5, length.out=1000000)
+# all_P = seq(0.01, 62.5, length.out=1000000)  # This choice will illustrate more identification issues.
 all_P = seq(12.5, 62.5, length.out=20000) # as in (R&S, 1986)
 
 # LS periodogram for extinciotn data
