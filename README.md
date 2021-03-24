@@ -63,7 +63,7 @@ where `C` is wall-clock time / periodogram calculation --- this is estimated thr
     
     ci = Build_ConfidenceSet(rv, all_P, time_budget_mins = 5)   # Build (fast) 99% confidence set for unknown period.
 
-The confidence set will be a singleton `{4.23}` indicating that the underlying periodicity can be sharply identified.
+The confidence set will be a singleton `ci = {4.23}` indicating that the underlying periodicity can be sharply identified.
 
 ## Example 6. Real exoplanet detection: candidate exoplanet around α Centauri B
 
@@ -77,7 +77,7 @@ See [(Dumusque et al, 2012)](https://www.nature.com/articles/nature11572) for de
     
     ci = Build_ConfidenceSet(rvD, all_P, time_budget_mins = 5)  # Build (fast) 99% confidence set for unknown period.
 
-The confidence set will be `{0.762,  3.236,  8.118, 61.133}` indicating that the unnderlying period cannot be identified with this dataset.
+The confidence set will be `ci = {0.762,  3.236,  8.118, 61.133}` indicating that the unnderlying period cannot be identified with this dataset.
 
 ## Example 7. Real exoplanet detection: candidate exoplanet around Proxima Centauri
 
@@ -93,5 +93,5 @@ See also [(Suarez Mascareno et al, 2020)](https://arxiv.org/abs/2005.12114) for 
     
     ci = Build_ConfidenceSet(rvE, all_P, time_budget_mins = 10)  # Requires more samples than before.
 
-The confidence set will be `{0.916, 11.17}` indicating that the detection appears to be robust. However, there is a nuisance signal at 0.916-days that cannot be rejected at the 1% level. With few more observations (additional 10-15) this nuisance signal could be eliminated. See Section 6 in the paper.
+The confidence set will be `ci = {0.916, 11.17}` indicating that the detection appears to be robust. However, there is a nuisance signal at 0.916-days that cannot be rejected at the 1% level. With few more observations (additional 10-15) this nuisance signal could be eliminated. See Section 6 in the paper.
 
