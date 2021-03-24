@@ -93,5 +93,5 @@ See also [(Suarez Mascareno et al, 2020)](https://arxiv.org/abs/2005.12114) for 
     
     ci = Build_ConfidenceSet(rvE, all_P, time_budget_mins = 10)  # Requires more samples than before.
 
-The confidence set will be `ci = {0.916, 11.17}` indicating that the detection appears to be robust. However, there is a nuisance signal at 0.916-days that cannot be rejected at the 1% level. With few more observations (additional 10-15) this nuisance signal could be eliminated. See Section 6 in the paper.
+The confidence set will be `ci = {0.916, 11.17}` indicating that the detection appears to be robust. However, there is a nuisance signal at 0.916-days that cannot be rejected at the 1% level. This nuisance signal could be eliminated with (i) few more observations (additional 10-15, see Section 6 in the paper); or (ii) with a sharper test statistic (future work).
 
