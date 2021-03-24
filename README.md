@@ -85,8 +85,9 @@ See [(Anglada-Escude, 2016)](https://www.nature.com/articles/nature19106) for de
 For the analysis here we use the more recent and precise ESPRESSO measurements found here (https://vizier.u-strasbg.fr/viz-bin/VizieR?-source=J/A+A/639/A77)
 See also [(Suarez Mascareno et al, 2020)](https://arxiv.org/abs/2005.12114) for details on the ESPRESSO data.
 
-    all = load_Dataset_Index(1)                                 # Proxima Centauri data.
-    all_P = 10^seq(-1, 2.5, length.out=25000)               
+    all = load_Dataset_Index(5)                                 # Proxima Centauri data.
+    rvE = all$RV 
+    all_P = all$Periods               
     ls0 = lombe_scragle_fast(rvE, all_P, v=T)                 
     ls0$Phat                                                    # Peak should be at 11.17 days.
     
