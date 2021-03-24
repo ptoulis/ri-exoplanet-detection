@@ -32,12 +32,33 @@ ci = Build_ConfidenceSet(rv, all_P, time_budget_mins = 2)
 
 # Example 5. Real exoplanet detection problem: 51 Pegasi b
 source("rv_data.R")
-rvPeg = load_Dataset("51Pegb") # load RV dataset.
-all_P = 10^seq(-1, 2.5, length.out=25000) # universe of periods (denoted Θ in paper)
+all = load_Dataset_Index(1) # 51 Peg b
+rvPeg = all$RV # load RV dataset.
+all_P = all$Periods # universe of periods (denoted Θ in paper)
 
 ls0 = lombe_scragle_fast(rvPeg, all_P, v=T) # LS periodogram of 51Pegasi B
-ls0$Phat # Periodogram peak should be at 3.14 days.
+ls0$Phat   # Periodogram peak should be at  4.23 days.
 
 # Build 99% Confidence Set for 51 Pegasi b period. Takes 5 minute.
 ci = Build_ConfidenceSet(rv, all_P, time_budget_mins = 5)
+
+# Example 6. Real exoplanet detection: Unconfirmed exoplanet around α Centauri B.
+all = load_Dataset_Index(4) # load RV dataset from (Dumusque et al, 2012)
+rvD = all$RV # load RV dataset.
+all_P = all$Periods # universe of periods (denoted Θ in paper)
+
+ls0 = lombe_scragle_fast(rvD, all_P, v=T) # LS periodogram 
+ls0$Phat 
+
+ci = Build_ConfidenceSet(rvD, all_P, time_budget_mins = 5)
+
+# Example 7: Real exoplanet detection: Unconfirmed exoplanet around Proxima Centauri.
+all = load_Dataset_Index(5)
+rvE = all$RV # load RV dataset.
+all_P = all$Periods # universe of periods (denoted Θ in paper)
+
+ls0 = lombe_scragle_fast(rvE, all_P, v=T)                 
+ls0$Phat                                                    # Peak should be at 11.17 days.
+
+ci = Build_ConfidenceSet(rvE, all_P, time_budget_mins = 5)  # Build (fast) 99% confidence set for unknown period.
 
