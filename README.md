@@ -42,7 +42,7 @@ Let's test whether the true period could be equal to sqrt(2), in notation H0: θ
 
 Here, we will construct a 99% confidence set for the unknown periodicity. The function `Build_ConfidenceSet` implements Procedure 1 in the [paper]( https://www.ptoulis.com/s/astro_main.pdf). 
 
-    ci = Build_ConfidenceSet(rv, all_P, time_budget_mins = 2)
+    ci = Build_ConfidenceSet(rv, all_P, num_samples=100, time_budget_mins = 2)
 
 This confidence set will contain the values `{0.586, 0.774, 1.413, 3.417}`. We see that the true value is included (as expected from the above test).
 
