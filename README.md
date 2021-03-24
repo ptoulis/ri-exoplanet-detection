@@ -52,7 +52,7 @@ This confidence set will contain the values `{0.586, 0.774, 1.413, 3.417}`. We s
     rvPeg = load_Dataset("51Pegb") # load RV dataset.
     all_P = 10^seq(-1, 2.5, length.out=25000)    # universe of periods (denoted Θ in paper)
     ls0 = lombe_scragle_fast(rvPeg, all_P, v=T)  # LS periodogram of 51Pegasi B
-    ls0$Phat
+    ls0$Phat                                     # Peak should be at 4.23-days.
     
     ci = Build_ConfidenceSet(rv, all_P, time_budget_mins = 5)
 
