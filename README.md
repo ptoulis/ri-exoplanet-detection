@@ -33,7 +33,7 @@ We use the generalized version of the Lombe-Scragle periodogram. See [(Zechmeist
 
 ## Example 3. Hypothesis testing
 
-Let's test whether the true period could be equal to sqrt(2), in notation H0: θ* = sqrt(2). Since the truth is equal to sqrt(2) we should reject the null.
+Let's test whether the true period could be equal to sqrt(2), in notation H0: θ* = sqrt(2). Since the truth is equal to sqrt(2) we should **not** reject the null.
 
     test = Test_Period_Theta0(rv, all_P, theta0=theta_true, null_samples=100)
     test$pval                                       # pval = 0.38. We don't reject.
