@@ -40,9 +40,7 @@ Let's test whether the true period could be equal to sqrt(2), in notation H0: θ
     
 ## Example 4. Build 99% confidence set.
 
-Here, we will construct a 99% confidence set for the unknown periodicity. The function `Build_ConfidenceSet` implements Procedure 1 in the [paper]( https://www.ptoulis.com/s/astro_main.pdf).
-
-The below construction is approximate and fast. In a full application we need to increase `num_samples` and the `time_budget_mins` so that inference relies on more samples. See paper for details.
+Here, we will construct a 99% confidence set for the unknown periodicity. The function `Build_ConfidenceSet` implements Procedure 1 in the [paper]( https://www.ptoulis.com/s/astro_main.pdf). The construction below is designed to be approximate and fast. In a full application we need to increase `num_samples` and the `time_budget_mins` so that inference relies on more samples. See paper for details.
 
     ci = Build_ConfidenceSet(rv, all_P, time_budget_mins = 2)
 
