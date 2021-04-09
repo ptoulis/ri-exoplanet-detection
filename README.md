@@ -77,7 +77,7 @@ See [(Dumusque et al, 2012)](https://www.nature.com/articles/nature11572) for de
     
     ci = Build_ConfidenceSet(rvD, all_P, time_budget_mins = 5)  # Build (fast) 99% confidence set for unknown period.
 
-The confidence set will be `ci = {0.762,  3.236,  8.118, 61.133}` indicating that the unnderlying period cannot be identified with this dataset.
+The confidence set will be `ci = {0.762,  3.236,  8.118, 61.133}` indicating that the underlying period cannot be identified with this dataset.
 
 ## Example 7. Real exoplanet detection: candidate exoplanet around Proxima Centauri
 
